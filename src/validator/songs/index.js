@@ -1,14 +1,5 @@
-import { AlbumPayloadSchema, SongPayloadSchema } from './schema';
-import InvariantError from '../../exceptions/InvariantError';
-
-const AlbumsValidator = {
-  validateAlbumPayload: (payload) => {
-    const validateResult = AlbumPayloadSchema.validate(payload);
-    if (validateResult.error) {
-      throw new InvariantError(validateResult.error.message);
-    }
-  },
-};
+import SongPayloadSchema from './schema.js';
+import InvariantError from '../../exceptions/InvariantError.js';
 
 const SongsValidator = {
   validateSongPayload: (payload) => {
@@ -19,4 +10,4 @@ const SongsValidator = {
   },
 };
 
-export { AlbumsValidator, SongsValidator };
+export default SongsValidator;
