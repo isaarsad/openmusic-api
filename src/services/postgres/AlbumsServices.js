@@ -2,7 +2,6 @@ import { nanoid } from 'nanoid';
 import { Pool } from 'pg';
 import InvariantError from '../../exceptions/InvariantError.js';
 import NotFoundError from '../../exceptions/NotFoundError.js';
-import { mapDBToModel } from '../../utils/index.js';
 
 class AlbumsService {
   constructor() {
@@ -29,13 +28,13 @@ class AlbumsService {
   }
 
   async getAlbums() {
-    const result = await this._pool.query('SELECT * FROM albums');
-    return result.rows.map(mapDBToModel);
+    const result = await this._pool.query('SELECT id, name, year FROM albums');
+    return result.rows;
   }
 
   async getAlbumById(id) {
     const query = {
-      text: 'SELECT * FROM albums WHERE ID = $1',
+      text: 'SELECT id, name, year FROM albums WHERE ID = $1',
       values: [id],
     };
     const result = await this._pool.query(query);
@@ -44,7 +43,7 @@ class AlbumsService {
       throw new NotFoundError('Album tidak ditemukan');
     }
 
-    return result.rows.map(mapDBToModel)[0];
+    return result.rows[0];
 
     /*
     // 1. Ambil Albumnya dulu
