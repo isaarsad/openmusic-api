@@ -56,33 +56,6 @@ class SongsService {
     }
 
     return result.rows[0];
-
-    /*
-    // 1. Ambil Songnya dulu
-    const querySong = {
-      text: 'SELECT id, name, year FROM songs WHERE id = $1',
-      values: [id],
-    };
-    const songResult = await this._pool.query(querySong);
-
-    if (!songResult.rows.length) {
-      throw new NotFoundError('Song tidak ditemukan');
-    }
-
-    // 2. Ambil Songs milik song tersebut
-    const querySongs = {
-      text: 'SELECT id, title, performer FROM songs WHERE "songId" = $1',
-      values: [id],
-    };
-    const songsResult = await this._pool.query(querySongs);
-
-    // 3. Gabungin hasilnya
-    const song = songResult.rows[0];
-    return {
-      ...song,
-      songs: songsResult.rows, // Array of songs masuk ke sini
-    };
-    */
   }
 
   async editSongById(id, { title, year, performer, genre, duration, albumId }) {
